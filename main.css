@@ -1,3 +1,31 @@
+/* .bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    animation: fadein 2s ease-in-out forwards;
+}
+ */
+
+/* @keyframes fadein {
+    from {
+
+    }
+    to {
+        filter: blur(2px);
+        -ms-filter: blur(2px);
+        -webkit-filter: blur(2px);
+    }
+} */
+
+
+body {
+    background: #fff url("./bg.jpg") no-repeat;
+    background-size: cover;
+}
+
 .row:nth-child(2) {
     margin-left: -2.8em;
 }
@@ -57,7 +85,6 @@ button:hover {
 }
 
 kbd:hover button {
-    /* visibility: visible; */
     opacity: 1;
 }
 
@@ -69,6 +96,9 @@ main {
     height: 100vh;
 }
 
-.keyWrap {
-    
+#keyWrap {
+    padding: 20px 20px;
+    /* position: relative; */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 9px;
 }
