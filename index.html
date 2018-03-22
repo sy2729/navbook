@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nav-Website</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    
+    <!-- <h2>Navigate For Yourself</h2> -->
+
+    <main >
+        <div id="keyWrap"></div>
+    </main>
+
+
+
+    <script>
+
+    //prepare the data
+
+    var keyboard = [
+        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+        ["Z", "X", "C", "V", "B", "N", "M"]
+    ]
+
+    var websites = {
+        A: "amazon.com",
+        B: "",
+        C: "",
+        D: "",
+        E: "",
+        F: "",
+        G: "",
+        H: "",
+        I: "",
+        J: "",
+        K: "",
+        L: "",
+        M: "",
+        N: "",
+        O: "",
+        P: "",
+        Q: "",
+        R: "",
+        S: "",
+        T: "",
+        U: "",
+        V: "",
+        W: "",
+        X: "",
+        Y: "",
+        Z: ""
+    }
+
+
+    //retreiving from local storage;
+    var websitesLocal = JSON.parse(localStorage.getItem('local') || 'null');
+    if(websitesLocal) {
+        websites = websitesLocal;
+    }
+    
+
+
+    //create keyboard
+    for(var i = 0; i < keyboard.length; i++) {
+        var div = document.createElement('div');
+        div.className = "row";
+        keyWrap.appendChild(div)
+
+        for(var w = 0; w < keyboard[i].length; w++) {
+            var kbd = document.createElement("kbd");
+            var span = document.createElement('span');
+            var img = document.createElement('img');
+            img.src = "http://" + websites[keyboard[i][w]] + "/favicon.ico";
+
+            img.onerror = function(e) {
+                e.target.src = "https://i.loli.net/2018/03/22/5ab32712b5bcd.png"
+                
+            }
+
+
+            span.textContent = keyboard[i][w];
+            div.appendChild(kbd);
+            kbd.appendChild(span);
+            kbd.appendChild(img);
+
+            var button = document.createElement('button');
+            button.textContent = "Edit";
+            kbd.appendChild(button)
+            button.id = keyboard[i][w];
+
+            
+
+            button.onclick = function(e) {
+                var url = prompt("what's the website you wanna set for this key?");
+                websites[e.target.id] = url;
+                e.target.previousSibling.src = "http://" + url + "/favicon.ico";
+                localStorage.setItem('local', JSON.stringify(websites));
+            }
+
+        }
+    }
+
+
+    //listen for events
+    document.onkeypress = function(e) {
+        var keyPressed = e.key.toUpperCase();
+        url = 'http://' + websites[keyPressed];
+        window.open(url, "_blank");
+    }
+
+    
+    
+
+    
+    
+    
+    </script>
+
+</body>
+</html>
