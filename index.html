@@ -105,8 +105,10 @@
             var span = createInsertTag('span', kbd);
             var img = createInsertTag('img', kbd);
             var button = createInsertTag('button', kbd);
-            img.src = "http://" + websites[keyboard[i][w]] + "/favicon.ico";
+            img.src = "https://" + websites[keyboard[i][w]] + "/favicon.ico";
             img.onerror = function(e) {
+                console.log(e.target.src)
+
                 e.target.src = "https://i.loli.net/2018/03/22/5ab32712b5bcd.png"
             }
             span.textContent = keyboard[i][w];
@@ -114,15 +116,19 @@
             button.id = keyboard[i][w];
             button.onclick = function(e) {
                 var url = getUrl();
-                e.target.previousSibling.src = "http://" + url + "/favicon.ico";
-                saveToLocal(websites)
+                websites[e.target.id] = url;
+                e.target.previousSibling.src = "https://" + url + "/favicon.ico";
+                e.target.previousSibling.onerror = function() {
+                    e.target.previousSibling.src = "https://i.loli.net/2018/03/23/5ab3f1342254d.png";
+                }
+                saveToLocal(websites);
             }
         }
     }
     //listen for events
     document.onkeypress = function(e) {
         var keyPressed = e.key.toUpperCase();
-        url = 'http://' + websites[keyPressed];
+        url = 'https://' + websites[keyPressed];
         window.open(url, "_blank");
     }
     </script>
